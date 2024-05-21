@@ -35,27 +35,6 @@ cmd() {
   COUNTER=$((COUNTER += 1))
 }
 
-. /etc/os-release
-case "${ID} ${VARIANT_ID}" in
-  "fedora workstation") ;;
-  *)
-    echo "this script must be run on Fedora Workstation" >/dev/stderr
-    exit 1
-    ;;
-esac
-
-cat <<EOF
-Welcome to Silverblueize, where you convert your existing Fedora Workstation install into Fedora Silverblue.
-This process may be harmful and is irreversable without disk or partition snapshots (see LVM or btrfs).
-User data, via home partition will persist and programs or other system configurations will likely not.
-
-The procedure will feel like a new install but with persisting user data
-
-By proceeding, you understand the risk.
-Press [enter] to proceed.
-EOF
-read -r -p ''
-
 cmd dnf install -y ostree ostree-grub2
 
 cmd ostree admin init-fs /
